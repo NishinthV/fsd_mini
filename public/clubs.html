@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clubs Directory</title>
+    <style>
+        .club-list { margin: 20px; padding: 10px; cursor: pointer; border-bottom: 1px solid #ccc; }
+        .club-list:hover { background-color: #f0f0f0; }
+        .club-details { margin-top: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
+        h1 { text-align: center; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <h1>MIT-WPU Clubs</h1>
+    <div id="club-container">
+        <!-- Complete List of Clubs -->
+        <div class="club-list" onclick="fetchClubDetails('ACM MIT WPU Student Chapter')">ACM MIT WPU Student Chapter</div>
+        <div class="club-list" onclick="fetchClubDetails('AlchE')">AlchE</div>
+        <div class="club-list" onclick="fetchClubDetails('Apogee')">Apogee</div>
+        <div class="club-list" onclick="fetchClubDetails('Astronomy Club')">Astronomy Club</div>
+        <div class="club-list" onclick="fetchClubDetails('BAJA SAE')">BAJA SAE</div>
+        <div class="club-list" onclick="fetchClubDetails('Computer Society of India MIT-WPU')">Computer Society of India MIT-WPU</div>
+        <div class="club-list" onclick="fetchClubDetails('Cybersecurity Club')">Cybersecurity Club</div>
+        <div class="club-list" onclick="fetchClubDetails('IEEE Student Branch')">IEEE Student Branch</div>
+        <div class="club-list" onclick="fetchClubDetails('Robotics Club')">Robotics Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Aarohan')">Aarohan</div>
+        <div class="club-list" onclick="fetchClubDetails('Aatman')">Aatman</div>
+        <div class="club-list" onclick="fetchClubDetails('Abhivaykti Cultural Club')">Abhivaykti Cultural Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Art Circle')">Art Circle</div>
+        <div class="club-list" onclick="fetchClubDetails('Cultural Club')">Cultural Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Dance Club')">Dance Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Dramatics Club')">Dramatics Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Enactus MITWPU')">Enactus MITWPU</div>
+        <div class="club-list" onclick="fetchClubDetails('Environment Club')">Environment Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Fest-Comm')">Fest-Comm</div>
+        <div class="club-list" onclick="fetchClubDetails('IEEE Women in Engineering')">IEEE Women in Engineering</div>
+        <div class="club-list" onclick="fetchClubDetails('International Student Cell')">International Student Cell</div>
+        <div class="club-list" onclick="fetchClubDetails('MITWPU Eco Club')">MITWPU Eco Club</div>
+        <div class="club-list" onclick="fetchClubDetails('MITWPU Literary Club')">MITWPU Literary Club</div>
+        <div class="club-list" onclick="fetchClubDetails('MITWPU Music Club')">MITWPU Music Club</div>
+        <div class="club-list" onclick="fetchClubDetails('MITWPU Social Service Club')">MITWPU Social Service Club</div>
+        <div class="club-list" onclick="fetchClubDetails('NSS MITWPU')">NSS MITWPU</div>
+        <div class="club-list" onclick="fetchClubDetails('Rotaract Club')">Rotaract Club</div>
+        <div class="club-list" onclick="fetchClubDetails('TEDxMITWPU')">TEDxMITWPU</div>
+        <div class="club-list" onclick="fetchClubDetails('Toastmasters Club')">Toastmasters Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Drama Club')">Drama Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Literary Club')">Literary Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Photography Club')">Photography Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Quiz Club')">Quiz Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Debate Club')">Debate Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Entrepreneurship Cell (E-Cell)')">Entrepreneurship Cell (E-Cell)</div>
+        <div class="club-list" onclick="fetchClubDetails('Finance and Investment Club')">Finance and Investment Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Green Club')">Green Club</div>
+        <div class="club-list" onclick="fetchClubDetails('NSS (National Service Scheme)')">NSS (National Service Scheme)</div>
+        <div class="club-list" onclick="fetchClubDetails('Buzz Cast')">Buzz Cast</div>
+        <div class="club-list" onclick="fetchClubDetails('Chalchitra-The Film Club')">Chalchitra-The Film Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Banking Forum')">Banking Forum</div>
+        <div class="club-list" onclick="fetchClubDetails('Energy Club')">Energy Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Mathematics Club')">Mathematics Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Mechanical Engineering Society')">Mechanical Engineering Society</div>
+        <div class="club-list" onclick="fetchClubDetails('Open Source Club')">Open Source Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Science Club')">Science Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Society of Automotive Engineers')">Society of Automotive Engineers</div>
+        <div class="club-list" onclick="fetchClubDetails('Space Club')">Space Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Sports Club')">Sports Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Technical Research Club')">Technical Research Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Theatre Club')">Theatre Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Vidyut')">Vidyut</div>
+        <div class="club-list" onclick="fetchClubDetails('Women in Engineering (WIE) IEEE')">Women in Engineering (WIE) IEEE</div>
+        <div class="club-list" onclick="fetchClubDetails('Yoga Club')">Yoga Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Youth Red Cross Club')">Youth Red Cross Club</div>
+        <div class="club-list" onclick="fetchClubDetails('Social Innovation Cell')">Social Innovation Cell</div>
+        <div class="club-list" onclick="fetchClubDetails('MUN Society')">MUN Society</div>
+        <div class="club-list" onclick="fetchClubDetails('Young Entrepreneurs Society (YES)')">Young Entrepreneurs Society (YES)</div>
+    </div>
+
+    <div id="club-details" class="club-details"></div>
+
+    <script>
+        async function fetchClubDetails(clubName) {
+            try {
+                const response = await fetch(`/api/club-details?club_name=${encodeURIComponent(clubName)}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    displayClubDetails(data);
+                } else {
+                    document.getElementById('club-details').innerHTML = `<p>${data.error}</p>`;
+                }
+            } catch (error) {
+                console.error('Error fetching club details:', error);
+            }
+        }
+
+        function displayClubDetails(data) {
+            const detailsDiv = document.getElementById('club-details');
+            detailsDiv.innerHTML = `
+                <h2>${data.club_name}</h2>
+                <p><strong>Mentors:</strong> ${data.club_mentors}</p>
+                <p><strong>President:</strong> ${data.club_president}</p>
+                <p><strong>Contact:</strong> ${data.contact_number}</p>
+                <p><strong>Email:</strong> ${data.email_id}</p>
+                <p><strong>Description:</strong> ${data.club_description}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MITWPU Clubs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-image: url('https://images.pexels.com/photos/2387793/pexels-photo-2387793.jpeg?cs=srgb&dl=pexels-adrien-olichon-1257089-2387793.jpg&fm=jpg');
+            background-size: cover;
+            background-position: center;
+            color: rgb(32, 31, 31);
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.747);
+            padding: 0.05rem 0.2rem;
+            transition: background-color 0.5s;
+        }
+        .navbar-brand img {
+            width: 150px;
+            transition: transform 0.5s;
+        }
+        .navbar-nav .nav-link {
+            color: black;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+            transform: translateY(-3px);
+        }
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 1px;
+            background-color: #007bff;
+            transition: width 0.3s;
+        }
+        .navbar-nav .nav-link:hover::after {
+            width: 80%;
+        }
+        .container {
+            display: none;
+        }
+        .container.active {
+            display: block;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        h1 {
+            font-size: 2rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            animation: zoomIn 1.5s ease-in-out;
+        }
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        /* New animated title */
+        .animated-title {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            color: #007bff;
+            animation: bounceIn 1.5s ease-in-out;
+            animation-delay: 1s;
+        }
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-container .input-group {
+            max-width: 600px;
+            margin: auto;
+        }
+        .search-container input {
+            border-radius: 20px;
+            padding: 10px;
+            border: none;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s;
+        }
+        .search-container input:focus {
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.7);
+            outline: none;
+        }
+        .table-container table {
+            animation: slideIn 1s ease-in-out;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .pagination button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+        /* Contact form and footer styles */
+        form .form-control {
+            border-radius: 30px;
+            padding: 15px;
+            border: none;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s;
+        }
+        form .form-control:focus {
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.7);
+            outline: none;
+        }
+        .social-icons a {
+            color: white;
+            margin: 0 15px;
+            transition: transform 0.3s;
+        }
+        .social-icons a:hover {
+            color: #007bff;
+            transform: scale(1.2);
+        }
+        footer {
+            background-color: #1c1c1c;
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+        footer .footer-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        footer .footer-info div {
+            margin-bottom: 20px;
+        }
+        footer .footer-info i {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+        footer .footer-info p {
+            margin: 0;
+            font-size: 16px;
+        }
+        footer .footer-info p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        footer .footer-info p a:hover {
+            text-decoration: underline;
+        }
+        footer .social-icons {
+            margin: 20px 0;
+        }
+        footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        footer .social-icons a:hover {
+            color: #007bff;
+        }
+        footer .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        footer .copyright .heart {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="logo.png" alt="MITWPU Logo" width="150">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="showSection('home')">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="showSection('upcomingEvents')">Upcoming Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="showSection('clubs')">Clubs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="showSection('contact')">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Home Section -->
+    <div id="home" class="container active text-center text-white">
+        <head>
+            <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+            <h2 style="
+                    font-family: 'Bebas Neue', sans-serif;
+                    font-size: 60px;
+                    color: white;
+                    letter-spacing: 2px;
+                    text-shadow: 
+                        1px 1px 0px #b3b3b3,  /* Layer 1 for depth */
+                        2px 2px 0px #999999,  /* Layer 2 for more depth */
+                        3px 3px 0px #7f7f7f,  /* Layer 3 for more intensity */
+                        4px 4px 5px rgba(0, 0, 0, 0.5); /* Final layer for strong shadow */
+                    text-align: left;
+                ">
+                    ABOUT MITWPU
+            </h2>
+
+            <img src= "https://worldpeacedome.in/wp-content/uploads/2019/09/domeban1-1024x494.jpg" alt="MIT" width="700" height="345" class="center">
+
+                <p style="font-size: 20px; line-height: 1.6; color: #f0f0f0; max-width: 1000px; margin: 0 auto;">
+                     MIT World Peace University (MIT-WPU) is a prestigious world-class institution of higher education in India, boasting a remarkable 40-year legacy dedicated to fostering excellence in academics. With a global alumni network comprising over 1,00,000 professionals, MIT-WPU has consistently delivered outstanding educational outcomes. The institution offers over 150 undergraduate and postgraduate programmes that are thoughtfully designed to strike a balance between theoretical foundations and practical application. The pedagogical approach prioritises experiential learning, empowering students to translate knowledge into real-world skills. This is facilitated through immersive internships and invaluable mentor-mentee insights that serve as catalysts for personal and professional growth.
+                </p>
+
+
+           
+        </head>
+        
+        
+    </div>
+
+    <!-- Upcoming Events Section -->
+    <div id="upcomingEvents" class="container text-center text-white">
+
+        <head>
+            <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+            <h2 style="
+                    font-family: 'Bebas Neue', sans-serif;
+                    font-size: 60px;
+                    color: white;
+                    letter-spacing: 2px;
+                    text-shadow: 
+                        1px 1px 0px #b3b3b3,  /* Layer 1 for depth */
+                        2px 2px 0px #999999,  /* Layer 2 for more depth */
+                        3px 3px 0px #7f7f7f,  /* Layer 3 for more intensity */
+                        4px 4px 5px rgba(0, 0, 0, 0.5); /* Final layer for strong shadow */
+                    text-align: left;
+                ">
+                    UPCOMING EVENTS
+            </h2>
+
+            <h1 style="
+                    font-family: 'Bebas Neue', sans-serif;
+                    font-size: 250px;
+                    color: white;
+                    letter-spacing: 4px;
+                    text-shadow: 
+                        1px 1px 0px #b3b3b3,  /* Layer 1 for depth */
+                        2px 2px 0px #999999,  /* Layer 2 for more depth */
+                        3px 3px 0px #7f7f7f,  /* Layer 3 for more intensity */
+                        4px 4px 5px rgba(0, 0, 0, 0.5); /* Final layer for strong shadow */
+                    ">
+                    WHAT'S UP?!
+
+            </h1>
+            <!-- Content for Upcoming Events -->
+
+        </head>
+        <div id="react-upcoming-events"></div>
+    </div>
+
+    <!-- Clubs Section -->
+    <div id="clubs" class="container text-center text-white">
+        <head>
+            <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+            <h2 style="
+                    font-family: 'Bebas Neue', sans-serif;
+                    font-size: 60px;
+                    color: white;
+                    letter-spacing: 2px;
+                    text-shadow: 
+                        1px 1px 0px #b3b3b3,  /* Layer 1 for depth */
+                        2px 2px 0px #999999,  /* Layer 2 for more depth */
+                        3px 3px 0px #7f7f7f,  /* Layer 3 for more intensity */
+                        4px 4px 5px rgba(0, 0, 0, 0.5); /* Final layer for strong shadow */
+                    text-align: left;
+                ">
+                    CLUBS
+                </h2>
+                <div class="search-container mb-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        </div>
+                        <input type="text" id="searchBox" class="form-control" placeholder="Search for clubs, categories...">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="table table-dark table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th>Club Name</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Registration Link</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clubTableBody">
+                            <!-- Dynamic club rows will be inserted here -->
+                        </tbody>
+                    </table>
+                    <nav>
+                        <ul class="pagination" id="paginationControls">
+                            <!-- Pagination controls will be inserted here -->
+                        </ul>
+                    </nav>
+                </div>
+        </head>
+        <div id="react-clubs"></div>
+
+    </div>
+
+    <!-- Contact Us Section -->
+    <div id="contact" class="container text-center text-white">
+        <head>
+            <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+            <h2 style="
+                    font-family: 'Bebas Neue', sans-serif;
+                    font-size: 60px;
+                    color: white;
+                    letter-spacing: 2px;
+                    text-shadow: 
+                        1px 1px 0px #b3b3b3,  /* Layer 1 for depth */
+                        2px 2px 0px #999999,  /* Layer 2 for more depth */
+                        3px 3px 0px #7f7f7f,  /* Layer 3 for more intensity */
+                        4px 4px 5px rgba(0, 0, 0, 0.5); /* Final layer for strong shadow */
+                    text-align: left;
+                ">
+                    CONTACT US
+                </h2>
+                <div class="row">
+                    <div class="col-md-6 mt-4">
+                        <h4>Reach Out to Us!</h4>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                        <h4>Follow Us</h4>
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com/mitwpu" target="_blank"><i class="fab fa-facebook-f fa-2x"></i></a>
+                            <a href="https://twitter.com/mitwpu" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
+                            <a href="https://www.instagram.com/mitwpu/" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
+                            <a href="https://in.linkedin.com/school/mitwpuofficial/" target="_blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
+                        </div>
+                    </div>
+                </div>
+        </head>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-info">
+            <div>
+                <i class="fas fa-map-marker-alt"></i>
+                <p><strong>ADDRESS</strong><br>
+                S.No.124, Paud Road, Kothrud, Pune, Maharashtra 411038</p>
+            </div>
+            <div>
+                <i class="fas fa-phone-alt"></i>
+                <p><strong>PHONE</strong><br>
+                +91 7020107558 / 9551165281</p>
+            </div>
+            <div>
+                <i class="fas fa-envelope"></i>
+                <p><strong>EMAIL</strong><br>
+                <a href="mailto:karnavatneel@mitwpu.edu.in ">karnavatneel@mitwpu.edu.in</a></p>
+                <a href="mailto:nishinthvenkatesh@gmail.com">nishinthvenkatesh@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/mitwpu" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/mitwpu" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/mitwpu/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/school/mitwpu/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="copyright">
+            &copy; 2024 MIT-WPU. All Rights Reserved.
+            
+        </div>
+    </footer>
+
+     <!-- Including React and ReactDOM Libraries -->
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+
+    <!-- Linking to External React Scripts -->
+    <script type="text/babel" src="Clubs.js"></script>
+    <script type="text/babel" src="Event.js"></script>
+
+    <script type="text/babel">
+        // Injecting React Components into Specific Sections
+        ReactDOM.render(<Events />, document.getElementById('react-upcoming-events'));
+        ReactDOM.render(<Clubs />, document.getElementById('react-clubs'));
+    </script>
+
+    <script>
+        const clubs = [ 
+    { name: "ACM MIT WPU Student Chapter", category: "Tech", description: "Premier global community of computing professionals.", link: "#", page: "acm-mit-wpu.html" },
+    { name: "AlchE", category: "Tech", description: "Aims to cultivate a strong interest in chemical engineering.", link: "#", page: "alche.html" },
+    { name: "Apogee", category: "Tech", description: "A magazine and newsletter focused on engineering.", link: "#", page: "apogee.html" },
+    { name: "Astronomy Club", category: "Tech", description: "Dedicated to exploring the wonders of the universe.", link: "#", page: "astronomy-club.html" },
+    { name: "BAJA SAE", category: "Tech", description: "Club where students design, build, and race off-road vehicles.", link: "#", page: "baja-sae.html" },
+    { name: "Computer Society of India MIT-WPU", category: "Tech", description: "Supports students in computer science.", link: "#", page: "csi-mit-wpu.html" },
+    { name: "Cybersecurity Club", category: "Tech", description: "For students interested in protecting digital assets.", link: "#", page: "cybersecurity-club.html" },
+    { name: "IEEE Student Branch", category: "Tech", description: "Promotes the advancement of technology.", link: "#", page: "ieee-student-branch.html" },
+    { name: "Robotics Club", category: "Tech", description: "For students interested in robotics and automation.", link: "#", page: "robotics-club.html" },
+    { name: "Aarohan", category: "Non-Tech", description: "Official college fest of MIT WPU.", link: "#", page: "aarohan.html" },
+    { name: "Aatman", category: "Non-Tech", description: "The only psychology club at MIT-WPU by the Department of Psychology.", link: "#", page: "aatman.html" },
+    { name: "Abhivaykti Cultural Club", category: "Non-Tech", description: "Organizes various cultural events.", link: "#", page: "abhivaykti-cultural-club.html" },
+    { name: "Art Circle", category: "Non-Tech", description: "Focuses on nurturing the artistic talents of students through various forms of art.", link: "#", page: "art-circle.html" },
+    { name: "Cultural Club", category: "Non-Tech", description: "Organizes cultural events and activities.", link: "#", page: "cultural-club.html" },
+    { name: "Dance Club", category: "Non-Tech", description: "Promotes dance and performance arts.", link: "#", page: "dance-club.html" },
+    { name: "Dramatics Club", category: "Non-Tech", description: "Nurtures talent in acting and drama.", link: "#", page: "dramatics-club.html" },
+    { name: "Enactus MITWPU", category: "Social/Community Service", description: "Empowers students through social entrepreneurship.", link: "#", page: "enactus-mitwpu.html" },
+    { name: "Environment Club", category: "Social/Community Service", description: "Focuses on environmental conservation and sustainability.", link: "#", page: "environment-club.html" },
+    { name: "Fest-Comm", category: "Non-Tech", description: "Organizes and manages various college festivals.", link: "#", page: "fest-comm.html" },
+    { name: "IEEE Women in Engineering", category: "Tech", description: "Promotes the role of women in engineering fields.", link: "#", page: "ieee-women-in-engineering.html" },
+    { name: "International Student Cell", category: "Non-Tech", description: "Supports international students in adjusting to college life.", link: "#", page: "international-student-cell.html" },
+    { name: "MITWPU Eco Club", category: "Social/Community Service", description: "Works on sustainability and green initiatives.", link: "#", page: "mitwpu-eco-club.html" },
+    { name: "MITWPU Literary Club", category: "Non-Tech", description: "For students interested in literature and writing.", link: "#", page: "mitwpu-literary-club.html" },
+    { name: "MITWPU Music Club", category: "Non-Tech", description: "Nurtures musical talent and organizes performances.", link: "#", page: "mitwpu-music-club.html" },
+    { name: "MITWPU Social Service Club", category: "Social/Community Service", description: "Engages in various social service projects.", link: "#", page: "mitwpu-social-service-club.html" },
+    { name: "NSS MITWPU", category: "Social/Community Service", description: "Participates in community service and social initiatives.", link: "#", page: "nss-mitwpu.html" },
+    { name: "Rotaract Club", category: "Social/Community Service", description: "Focuses on community service and professional development.", link: "#", page: "rotaract-club.html" },
+    { name: "TEDxMITWPU", category: "Non-Tech", description: "Organizes TEDx events to spread innovative ideas.", link: "#", page: "tedxmitwpu.html" },
+    { name: "Toastmasters Club", category: "Non-Tech", description: "Dedicated to improving public speaking and leadership skills.", link: "#", page: "toastmasters-club.html" },
+    { name: "Drama Club", category: "Non-Tech", description: "Nurtures talent in acting, theater production, and stage management.", link: "#", page: "drama-club.html" },
+    { name: "Literary Club", category: "Non-Tech", description: "For those interested in literature, writing, and debates.", link: "#", page: "literary-club.html" },
+    { name: "Photography Club", category: "Non-Tech", description: "Helps students develop their photography skills.", link: "#", page: "photography-club.html" },
+    { name: "Quiz Club", category: "Non-Tech", description: "Organizes quizzes on various topics, enhancing knowledge and quick thinking.", link: "#", page: "quiz-club.html" },
+    { name: "Debate Club", category: "Non-Tech", description: "Focuses on developing debating skills and critical thinking.", link: "#", page: "debate-club.html" },
+    { name: "Entrepreneurship Cell (E-Cell)", category: "Entrepreneurship/Business", description: "Encourages entrepreneurial thinking and helps students start their ventures.", link: "#", page: "entrepreneurship-cell.html" },
+    { name: "Finance and Investment Club", category: "Entrepreneurship/Business", description: "Helps students understand financial markets and investment strategies.", link: "#", page: "finance-investment-club.html" },
+    { name: "Green Club", category: "Social/Community Service", description: "Dedicated to environmental conservation and sustainability.", link: "#", page: "green-club.html" },
+    { name: "NSS (National Service Scheme)", category: "Social/Community Service", description: "Focused on social service and community development.", link: "#", page: "nss.html" },
+    { name: "Rotaract Club", category: "Social/Community Service", description: "Focuses on community service, leadership development, and professional networking.", link: "#", page: "rotaract-club.html" },
+    { name: "Buzz Cast", category: "Media/Communication", description: "Media council.", link: "#", page: "buzz-cast.html" },
+    { name: "Chalchitra-The Film Club", category: "Media/Communication", description: "The official Filmmaking Club of MIT World Peace University.", link: "#", page: "chalchitra-film-club.html" },
+    { name: "Banking Forum", category: "Entrepreneurship/Business", description: "Provides comprehensive financial education to new freshmen.", link: "#", page: "banking-forum.html" },
+    { name: "Energy Club", category: "Tech", description: "Focuses on sustainable energy practices.", link: "#", page: "energy-club.html" },
+    { name: "Environmental Club", category: "Social/Community Service", description: "Works on projects related to environmental conservation.", link: "#", page: "environmental-club.html" },
+    { name: "Mathematics Club", category: "Tech", description: "Promotes the study and appreciation of mathematics.", link: "#", page: "mathematics-club.html" },
+    { name: "Mechanical Engineering Society", category: "Tech", description: "Supports students in mechanical engineering studies.", link: "#", page: "mechanical-engineering-society.html" },
+    { name: "NCC (National Cadet Corps)", category: "Social/Community Service", description: "A youth development movement involving military training.", link: "#", page: "ncc.html" },
+    { name: "Open Source Club", category: "Tech", description: "Focuses on promoting open-source software and collaboration.", link: "#", page: "open-source-club.html" },
+    { name: "Science Club", category: "Tech", description: "Encourages scientific exploration and experimentation.", link: "#", page: "science-club.html" },
+    { name: "Society of Automotive Engineers", category: "Tech", description: "Focuses on vehicle engineering and motorsport projects.", link: "#", page: "society-of-automotive-engineers.html" },
+    { name: "Space Club", category: "Tech", description: "Explores space science and technology.", link: "#", page: "space-club.html" },
+    { name: "Sports Club", category: "Non-Tech", description: "Organizes and promotes sports activities within the university.", link: "#", page: "sports-club.html" },
+    { name: "Technical Research Club", category: "Tech", description: "Engages in technical research projects and innovation.", link: "#", page: "technical-research-club.html" },
+    { name: "Theatre Club", category: "Non-Tech", description: "Focuses on drama, acting, and theater production.", link: "#", page: "theatre-club.html" },
+    { name: "Vidyut", category: "Tech", description: "Dedicated to electrical engineering and related technologies.", link: "#", page: "vidyut.html" },
+    { name: "Women in Engineering (WIE) IEEE", category: "Tech", description: "Encourages the participation of women in engineering and technology.", link: "#", page: "women-in-engineering-ieee.html" },
+    { name: "Youth Red Cross Club", category: "Social/Community Service", description: "Engages in health-related community service projects.", link: "#", page: "youth-red-cross-club.html" },
+    { name: "Yoga Club", category: "Non-Tech", description: "Promotes physical and mental well-being through yoga practices.", link: "#", page: "yoga-club.html" },
+    { name: "Social Innovation Cell", category: "Social/Community Service", description: "Focuses on innovative solutions for social challenges.", link: "#", page: "social-innovation-cell.html" },
+    { name: "MUN Society", category: "Non-Tech", description: "Organizes Model United Nations conferences and debates.", link: "#", page: "mun-society.html" },
+    { name: "Young Entrepreneurs' Society (YES)", category: "Entrepreneurship/Business", description: "Encourages and supports student-led entrepreneurial ventures.", link: "#", page: "young-entrepreneurs-society.html" }
+];
+        const rowsPerPage = 5;
+        let currentPage = 1;
+
+        document.getElementById('searchBox').addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#clubTableBody tr');
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const match = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(filter));
+                row.style.display = match ? '' : 'none';
+            });
+        });
+
+        function showSection(section) {
+            document.querySelectorAll('.container').forEach(container => {
+                container.classList.remove('active');
+            });
+            document.getElementById(section).classList.add('active');
+        }
+
+        function displayClubs(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedClubs = clubs.slice(start, end);
+
+            const tableBody = document.getElementById('clubTableBody');
+            tableBody.innerHTML = '';
+
+            paginatedClubs.forEach(club => {
+                const row = `<tr>
+                    <td><a href="${club.page}" class="text-white">${club.name}</a></td>
+                    <td>${club.category}</td>
+                    <td>${club.description}</td>
+                    <td><a href="${club.link}" class="btn btn-primary">Register</a></td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            updatePaginationControls(page);
+        }
+
+        function updatePaginationControls(page) {
+            const paginationControls = document.getElementById('paginationControls');
+            paginationControls.innerHTML = '';
+
+            const totalPages = Math.ceil(clubs.length / rowsPerPage);
+            for (let i = 1; i <= totalPages; i++) {
+                const activeClass = i === page ? 'active' : '';
+                const control = `<li class="page-item ${activeClass}">
+                    <a class="page-link" href="#" onclick="displayClubs(${i})">${i}</a>
+                </li>`;
+                paginationControls.innerHTML += control;
+            }
+        }
+
+        document.getElementById('searchBox').addEventListener('input', function() {
+            const searchText = this.value.toLowerCase();
+            const filteredClubs = clubs.filter(club => club.name.toLowerCase().includes(searchText));
+            const tableBody = document.getElementById('clubTableBody');
+            tableBody.innerHTML = '';
+
+            filteredClubs.forEach(club => {
+                const row = `<tr>
+                    <td><a href="${club.page}" class="text-white">${club.name}</a></td>
+                    <td>${club.category}</td>
+                    <td>${club.description}</td>
+                    <td><a href="${club.link}" class="btn btn-primary">Register</a></td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        });
+
+        displayClubs(currentPage);
+    </script>
+</body>
+</html>
