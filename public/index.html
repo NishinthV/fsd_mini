@@ -6,6 +6,23 @@
     <title>MITWPU Clubs</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+     <!-- Including React and ReactDOM Libraries -->
+     <script src="https://unpkg.com/react/umd/react.development.js"></script>
+     <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+     <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+     <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+     <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+     <script src="https://unpkg.com/@babel/standalone@7.18.9/babel.min.js"></script>
+ 
+     <!-- Linking to External React Scripts -->
+     <script type="text/babel" src="Clubs.js"></script>
+     <script type="text/babel" src="Event.js"></script>
+ 
     <style>
         body {
             background-image: url('https://images.pexels.com/photos/2387793/pexels-photo-2387793.jpeg?cs=srgb&dl=pexels-adrien-olichon-1257089-2387793.jpg&fm=jpg');
@@ -287,46 +304,120 @@
         
     </div>
 
-    <!-- Upcoming Events Section -->
-    <div id="upcomingEvents" class="container text-center text-white">
+   
 
-        <head>
-            <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<!-- Upcoming Events Section --> 
+<div id="upcomingEvents" class="container text-center text-white">
 
-            <h2 style="
-                    font-family: 'Bebas Neue', sans-serif;
-                    font-size: 60px;
-                    color: white;
-                    letter-spacing: 2px;
-                    text-shadow: 
-                        1px 1px 0px #b3b3b3,  /* Layer 1 for depth */
-                        2px 2px 0px #999999,  /* Layer 2 for more depth */
-                        3px 3px 0px #7f7f7f,  /* Layer 3 for more intensity */
-                        4px 4px 5px rgba(0, 0, 0, 0.5); /* Final layer for strong shadow */
-                    text-align: left;
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+        <h2 style="
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: 60px;
+                color: white;
+                letter-spacing: 2px;
+                text-shadow: 
+                    1px 1px 0px #b3b3b3,  /* Layer 1 for depth */
+                    2px 2px 0px #999999,  /* Layer 2 for more depth */
+                    3px 3px 0px #7f7f7f,  /* Layer 3 for more intensity */
+                    4px 4px 5px rgba(0, 0, 0, 0.5); /* Final layer for strong shadow */
+                text-align: left;
+            ">
+            UPCOMING EVENTS
+        </h2>
+
+        <h1 style="
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: 250px;
+                color: white;
+                letter-spacing: 4px;
+                text-shadow: 
+                    1px 1px 0px #b3b3b3,  /* Layer 1 for depth */
+                    2px 2px 0px #999999,  /* Layer 2 for more depth */
+                    3px 3px 0px #7f7f7f,  /* Layer 3 for more intensity */
+                    4px 4px 5px rgba(0, 0, 0, 0.5); /* Final layer for strong shadow */
                 ">
-                    UPCOMING EVENTS
-            </h2>
+            WHAT'S UP?!
+        </h1>
 
-            <h1 style="
-                    font-family: 'Bebas Neue', sans-serif;
-                    font-size: 250px;
-                    color: white;
-                    letter-spacing: 4px;
-                    text-shadow: 
-                        1px 1px 0px #b3b3b3,  /* Layer 1 for depth */
-                        2px 2px 0px #999999,  /* Layer 2 for more depth */
-                        3px 3px 0px #7f7f7f,  /* Layer 3 for more intensity */
-                        4px 4px 5px rgba(0, 0, 0, 0.5); /* Final layer for strong shadow */
-                    ">
-                    WHAT'S UP?!
+    </head>
+</div>
 
-            </h1>
-            <!-- Content for Upcoming Events -->
 
-        </head>
-        <div id="react-upcoming-events"></div>
-    </div>
+<script>
+    // Function to fetch events from the backend API
+    const fetchEvents = async () => {
+        try {
+            const response = await fetch('/api/events');
+            if (response.ok) {
+                const events = await response.json();
+                console.log(events);
+                renderEvents(events);
+            } else {
+                console.error('Failed to fetch events:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error fetching events:', error);
+        }
+    };
+
+    // Function to render events to the page
+    const renderEvents = (events) => {
+        const eventsContainer = document.getElementById('events-container');
+        eventsContainer.innerHTML = ''; // Clear existing content
+
+        if (events.length > 0) {
+            events.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.classList.add('event-card');
+                eventCard.style.backgroundColor = '#1f1f1f';
+                eventCard.style.padding = '20px';
+                eventCard.style.margin = '15px 0';
+                eventCard.style.borderRadius = '8px';
+                eventCard.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+
+                const eventName = document.createElement('h3');
+                eventName.textContent = event.event_name;
+                eventCard.appendChild(eventName);
+
+                const eventDescription = document.createElement('p');
+                eventDescription.textContent = event.event_description;
+                eventCard.appendChild(eventDescription);
+
+                if (event.event_image) {
+                    const eventImage = document.createElement('img');
+                    eventImage.src = event.event_image;
+                    eventImage.alt = event.event_name;
+                    eventImage.style.maxWidth = '100%';
+                    eventImage.style.height = 'auto';
+                    eventCard.appendChild(eventImage);
+                }
+
+                if (event.registration_link) {
+                    const registerLink = document.createElement('a');
+                    registerLink.href = event.registration_link;
+                    registerLink.target = '_blank';
+                    registerLink.rel = 'noopener noreferrer';
+                    registerLink.style.color = '#00f';
+                    registerLink.style.textDecoration = 'underline';
+                    registerLink.textContent = 'Register Now';
+                    eventCard.appendChild(registerLink);
+                }
+
+                eventsContainer.appendChild(eventCard);
+            });
+        } else {
+            const noEventsMessage = document.createElement('p');
+            noEventsMessage.textContent = 'No upcoming events';
+            eventsContainer.appendChild(noEventsMessage);
+        }
+    };
+
+    // Fetch events when the page loads
+    fetchEvents();
+</script>
+
 
     <!-- Clubs Section -->
     <div id="clubs" class="container text-center text-white">
@@ -428,6 +519,20 @@
         </head>
     </div>
 
+    <div id="club-details" 
+        class="club-details" 
+        style="
+        margin-top: 30px; 
+        padding: 20px; 
+        background-color: #ffffff; 
+        border: 1px solid #ddd; 
+        border-radius: 10px; 
+        color: #333;
+    ">
+    </div>
+
+
+
     <!-- Footer Section -->
     <footer>
         <div class="footer-info">
@@ -459,15 +564,6 @@
             
         </div>
     </footer>
-
-     <!-- Including React and ReactDOM Libraries -->
-    <script src="https://unpkg.com/react/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
-
-    <!-- Linking to External React Scripts -->
-    <script type="text/babel" src="Clubs.js"></script>
-    <script type="text/babel" src="Event.js"></script>
 
     <script type="text/babel">
         // Injecting React Components into Specific Sections
@@ -559,6 +655,50 @@
             document.getElementById(section).classList.add('active');
         }
 
+        async function fetchClubDetails(clubName) {
+            try {
+                const response = await fetch(`/api/club-details?club_name=${encodeURIComponent(clubName)}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    displayClubDetails(data);
+                } else {
+                    document.getElementById('club-details').innerHTML = `<p>${data.error}</p>`;
+                }
+            } catch (error) {
+                console.error('Error fetching club details:', error);
+            }
+        }
+
+        function displayClubDetails(data) {
+            const detailsDiv = document.getElementById('club-details');
+            detailsDiv.innerHTML = `
+                <h2>${data.club_name}</h2>
+                <p><strong>Mentors:</strong> ${data.club_mentors}</p>
+                <p><strong>President:</strong> ${data.club_president}</p>
+                <p><strong>Contact:</strong> ${data.contact_number}</p>
+                <p><strong>Email:</strong> ${data.email_id}</p>
+                <p><strong>Description:</strong> ${data.club_description}</p>
+            `;
+        }
+
+        async function loadEvents() {
+            const response = await fetch('/api/events');
+            const events = await response.json();
+
+            const eventsContainer = document.getElementById('react-upcoming-events');
+            eventsContainer.innerHTML = events.map(event => `
+                <div class="event-card">
+                    <img src="${event.event_image}" alt="${event.event_name}" style="max-width: 300px;">
+                    <h3>${event.event_name}</h3>
+                    <p>${event.event_description}</p>
+                    <a href="${event.registration_link}" target="_blank">Register Now</a>
+                </div>
+            `).join('');
+        }
+
+        loadEvents();
+
         function displayClubs(page) {
             const start = (page - 1) * rowsPerPage;
             const end = start + rowsPerPage;
@@ -569,7 +709,7 @@
 
             paginatedClubs.forEach(club => {
                 const row = `<tr>
-                    <td><a href="${club.page}" class="text-white">${club.name}</a></td>
+                    <td><a href="#" onclick="fetchClubDetails('${club.name}')" class="text-white">${club.name}</a></td>
                     <td>${club.category}</td>
                     <td>${club.description}</td>
                     <td><a href="${club.link}" class="btn btn-primary">Register</a></td>

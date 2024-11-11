@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Form</title>
+    <style>
+        /* Apply background image and fadeIn animation to the entire page */
+        body {
+            background-image: url('https://images.pexels.com/photos/2387793/pexels-photo-2387793.jpeg?cs=srgb&dl=pexels-adrien-olichon-1257089-2387793.jpg&fm=jpg');
+            background-size: cover;
+            background-position: center;
+            color: rgb(32, 31, 31);
+            animation: fadeIn 2s ease-in-out;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 60px;
+            color: white;
+            letter-spacing: 2px;
+            text-shadow: 
+                1px 1px 0px #b3b3b3,  
+                2px 2px 0px #999999,  
+                3px 3px 0px #7f7f7f,  
+                4px 4px 5px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+
+        /* Styling for the form */
+        form {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>NEW EVENT</h2>
+
+   
+    <form id="eventForm">
+        <label for="event_name">Event Name:</label>
+        <input type="text" id="event_name" name="event_name" required>
+    
+        <label for="event_description">Event Description:</label>
+        <textarea id="event_description" name="event_description" required></textarea>
+    
+        <label for="registration_link">Registration Link:</label>
+        <input type="text" id="registration_link" name="registration_link" required>
+    
+        <button type="submit">Submit</button>
+    </form>
+    
+    <script>
+        const form = document.getElementById('eventForm');
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission
+    
+            const formData = new FormData(form);
+            const data = {
+                event_name: formData.get('event_name'),
+                event_description: formData.get('event_description'),
+                registration_link: formData.get('registration_link')
+            };
+    
+            try {
+                const response = await fetch('/submit-event', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', // Set the Content-Type header to application/json
+                    },
+                    body: JSON.stringify(data) // Send the data as JSON in the body
+                });
+    
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Event added successfully');
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error submitting the form:', error);
+            }
+        });
+    </script>
+    
+</body>
+</html>
